@@ -39,10 +39,17 @@ app.post("/", function(req, res){
 
   const options = {
     method: "POST",
-    auth: "ayala98:6bbe06690988bccbacbf4d8a11610d3b-us8"
+    auth: "ayala98:16ef9fe2acc1e138faeade62d7dedec2-us8"
   }
 
   const request = https.request(url, options, function(response) {
+
+    if (response.statusCode === 200) {
+      res.sendFile(__dirname + "/success.html");
+    } else {
+      res.sendFile(__dirname + "/failure.html");
+    }
+
     response.on("data", function(data){
       console.log(JSON.parse(data));
     });
@@ -54,12 +61,18 @@ app.post("/", function(req, res){
 });
 
 
+app.post("/failure", function(req, res){
+  res.redirect("/");
+});
+
+
+
 app.listen(3000, function() {
   console.log("Server is running on port 3000.");
 });
 
 //API key
-// 6bbe06690988bccbacbf4d8a11610d3b-us8
+// 16ef9fe2acc1e138faeade62d7dedec2-us8
 
 //List Id
 // 3814e02ac8
